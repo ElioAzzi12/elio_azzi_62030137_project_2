@@ -83,7 +83,15 @@ class _AddStudentPageState extends State<AddStudentPage> {
                   decoration: InputDecoration(labelText: 'GPA'),
                   keyboardType: TextInputType.numberWithOptions(decimal: true),
                   onSaved: (value) => gpa = double.tryParse(value!) ?? 0.0,
-                  validator: (value) => value!.isEmpty ? 'GPA cannot be empty' : null,
+                  validator: (value) {
+                    final numVal = double.tryParse(value!);
+                    if (value.isEmpty) {
+                      return 'GPA cannot be empty';
+                    } else if (numVal != null && (numVal > 4.0 || numVal <= 0)) {
+                      return 'GPA must be more than 0 and not exceed 4.0';
+                    }
+                    return null;
+                  },
                 ),
                 TextFormField(
                   decoration: InputDecoration(labelText: 'Current Semester'),
