@@ -182,7 +182,7 @@ class _StudentDetailPageState extends State<StudentDetailPage> {
                 style: TextStyle(
                   color: Colors.white,
                   letterSpacing: 2,
-                  fontSize: 24,
+                  fontSize: 18,
                 ),
               ),
               SizedBox(height: 20),
@@ -205,9 +205,17 @@ class _StudentDetailPageState extends State<StudentDetailPage> {
               ),
               SizedBox(height: 30),
               Text(
-                'Current Semester: ${widget.student.currentSemester}',
+                'Current Semester:',
                 style: TextStyle(
                   color: Colors.white,
+                  letterSpacing: 2,
+                  fontSize: 18,
+                ),
+              ),
+              Text(
+                widget.student.currentSemester,
+                style: TextStyle(
+                  color: Colors.yellow,
                   letterSpacing: 2,
                   fontSize: 18,
                 ),
