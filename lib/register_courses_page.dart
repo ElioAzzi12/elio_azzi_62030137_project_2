@@ -45,7 +45,6 @@ class _RegisterCoursesPageState extends State<RegisterCoursesPage> {
   }
 
   void updateCourseRegistration() async {
-
     final updateData = {
       'studentId': widget.student.id.toString(),
       'courses': selectedCourses.entries
@@ -57,13 +56,14 @@ class _RegisterCoursesPageState extends State<RegisterCoursesPage> {
     final response = await http.post(
       Uri.parse('https://62030137.000webhostapp.com/update_student_courses.php'),
       body: json.encode(updateData),
+      headers: {"Content-Type": "application/json"},
     );
 
     if (response.statusCode == 200) {
       Navigator.of(context).pop(true);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to update courses')),
+        SnackBar(content: Text('Failed to update courses: ${response.body}')),
       );
     }
   }
@@ -81,8 +81,9 @@ class _RegisterCoursesPageState extends State<RegisterCoursesPage> {
           ),
         ],
       ),
+      backgroundColor: Colors.teal[900],
       body: availableCourses.isEmpty
-          ? Center(child: CircularProgressIndicator())
+          ? Center(child: CircularProgressIndicator(color: Colors.white))
           : ListView.builder(
         itemCount: availableCourses.length,
         itemBuilder: (context, index) {
@@ -90,10 +91,13 @@ class _RegisterCoursesPageState extends State<RegisterCoursesPage> {
           bool isSelected = selectedCourses[course.id] ?? false;
 
           return ListTile(
-            title: Text(course.name),
-            subtitle: Text('${course.creditHours} Credit Hours'),
+            tileColor: Colors.teal[800],
+            title: Text(course.name, style: TextStyle(color: Colors.white)),
+            subtitle: Text('${course.creditHours} Credit Hours', style: TextStyle(color: Colors.white70)),
             trailing: Checkbox(
               value: isSelected,
+              activeColor: Colors.teal[400],
+              checkColor: Colors.white,
               onChanged: (bool? newValue) {
                 setState(() {
                   selectedCourses[course.id] = newValue!;

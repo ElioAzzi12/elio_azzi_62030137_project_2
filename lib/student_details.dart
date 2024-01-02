@@ -47,7 +47,7 @@ class _StudentDetailPageState extends State<StudentDetailPage> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Delete Student'),
-          content: Text('Are you sure you want to delete this student?'),
+          content: Text('Are you sure you want to delete this student? Please un-register all courses before deleting a student.'),
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.of(context).pop(false),
@@ -224,7 +224,7 @@ class _StudentDetailPageState extends State<StudentDetailPage> {
               ...widget.student.courses.map((course) => Padding(
                 padding: EdgeInsets.only(top: 8.0),
                 child: Text(
-                  '${course.name} - ${course.creditHours} Hours',
+                  '${course.name} - ${course.creditHours} Credits',
                   style: TextStyle(
                     color: Colors.red[300],
                     fontSize: 18,
@@ -239,7 +239,7 @@ class _StudentDetailPageState extends State<StudentDetailPage> {
                     onPressed: _saveChanges,
                     child: Text('Save Changes', style: TextStyle(color: Colors.white)),
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.teal[400],
+                      backgroundColor: Colors.teal[400],
                     ),
                   ),
                 ),
