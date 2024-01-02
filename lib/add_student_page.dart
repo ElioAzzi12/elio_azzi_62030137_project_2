@@ -12,7 +12,7 @@ class _AddStudentPageState extends State<AddStudentPage> {
   String name = '';
   String email = '';
   double gpa = 0.0;
-  String currentSemester = '';
+  String currentSemester = 'Fall 2023-2024';
 
   void _submitForm() async {
     if (_formKey.currentState!.validate()) {
@@ -59,7 +59,9 @@ class _AddStudentPageState extends State<AddStudentPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Add New Student"),
+        backgroundColor: Colors.teal[400],
       ),
+      backgroundColor: Colors.teal[900],
       body: SingleChildScrollView(
         child: Form(
           key: _formKey,
@@ -69,19 +71,57 @@ class _AddStudentPageState extends State<AddStudentPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 TextFormField(
-                  decoration: InputDecoration(labelText: 'Name'),
+                  decoration: InputDecoration(
+                    labelText: 'Name',
+                    labelStyle: TextStyle(color: Colors.white),
+                    filled: true,
+                    fillColor: Colors.teal[700]!,
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.teal[700]!),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.teal[500]!),
+                    ),
+                  ),
+                  style: TextStyle(color: Colors.white),
                   onSaved: (value) => name = value!,
                   validator: (value) => value!.isEmpty ? 'Name cannot be empty' : null,
                 ),
+                SizedBox(height: 16),
                 TextFormField(
-                  decoration: InputDecoration(labelText: 'Email'),
+                  decoration: InputDecoration(
+                    labelText: 'Email',
+                    labelStyle: TextStyle(color: Colors.white),
+                    filled: true,
+                    fillColor: Colors.teal[700]!,
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.teal[700]!),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.teal[500]!),
+                    ),
+                  ),
                   keyboardType: TextInputType.emailAddress,
+                  style: TextStyle(color: Colors.white),
                   onSaved: (value) => email = value!,
                   validator: (value) => value!.isEmpty ? 'Email cannot be empty' : null,
                 ),
+                SizedBox(height: 16),
                 TextFormField(
-                  decoration: InputDecoration(labelText: 'GPA'),
+                  decoration: InputDecoration(
+                    labelText: 'GPA',
+                    labelStyle: TextStyle(color: Colors.white),
+                    filled: true,
+                    fillColor: Colors.teal[700]!,
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.teal[700]!),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.teal[500]!),
+                    ),
+                  ),
                   keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  style: TextStyle(color: Colors.white),
                   onSaved: (value) => gpa = double.tryParse(value!) ?? 0.0,
                   validator: (value) {
                     final numVal = double.tryParse(value!);
@@ -93,16 +133,44 @@ class _AddStudentPageState extends State<AddStudentPage> {
                     return null;
                   },
                 ),
-                TextFormField(
-                  decoration: InputDecoration(labelText: 'Current Semester'),
-                  onSaved: (value) => currentSemester = value!,
-                  validator: (value) => value!.isEmpty ? 'Current Semester cannot be empty' : null,
+                SizedBox(height: 16),
+                DropdownButtonFormField<String>(
+                  decoration: InputDecoration(
+                    labelText: 'Current Semester',
+                    labelStyle: TextStyle(color: Colors.white),
+                    filled: true,
+                    fillColor: Colors.teal[700]!,
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.teal[700]!),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.teal[500]!),
+                    ),
+                  ),
+                  value: currentSemester,
+                  items: <String>['Fall 2023-2024', 'Spring 2024', 'Summer 2024']
+                      .map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value, style: TextStyle(color: Colors.white)),
+                    );
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      currentSemester = newValue!;
+                    });
+                  },
+                  dropdownColor: Colors.teal[700],
+                  style: TextStyle(color: Colors.white),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                   child: ElevatedButton(
                     onPressed: _submitForm,
-                    child: Text('Create Student'),
+                    child: Text('Create Student', style: TextStyle(color: Colors.white)),
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.teal[400],
+                    ),
                   ),
                 ),
               ],
