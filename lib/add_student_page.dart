@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'student.dart';
+import 'dart:math';
 
 class AddStudentPage extends StatefulWidget {
   @override
@@ -14,6 +14,17 @@ class _AddStudentPageState extends State<AddStudentPage> {
   double gpa = 0.0;
   String currentSemester = 'Fall 2023-2024';
 
+  final List<String> avatarPaths = [
+    'assets/churro.png',
+    'assets/castor.png',
+    'assets/cat.png',
+  ];
+
+  String getRandomAvatarPath() {
+    final random = Random();
+    return avatarPaths[random.nextInt(avatarPaths.length)];
+  }
+
   void _submitForm() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
@@ -23,6 +34,7 @@ class _AddStudentPageState extends State<AddStudentPage> {
         'email': email,
         'gpa': gpa.toString(),
         'currentSemester': currentSemester,
+        'avatarPath': getRandomAvatarPath(),
       };
 
       final response = await http.post(
@@ -169,7 +181,7 @@ class _AddStudentPageState extends State<AddStudentPage> {
                     onPressed: _submitForm,
                     child: Text('Create Student', style: TextStyle(color: Colors.white)),
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.teal[400],
+                      backgroundColor: Colors.teal[400],
                     ),
                   ),
                 ),
