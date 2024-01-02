@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'student.dart';
+import 'course.dart';
+import 'register_courses_page.dart';
 
 class StudentDetailPage extends StatefulWidget {
   final Student student;
@@ -101,6 +103,15 @@ class _StudentDetailPageState extends State<StudentDetailPage> {
     }
   }
 
+  void navigateAndDisplaySelection(BuildContext context) async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => RegisterCoursesPage(student: widget.student),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -116,6 +127,10 @@ class _StudentDetailPageState extends State<StudentDetailPage> {
           IconButton(
             icon: Icon(Icons.delete),
             onPressed: _deleteStudent,
+          ),
+          IconButton(
+            icon: Icon(Icons.book),
+            onPressed: () => navigateAndDisplaySelection(context),
           ),
         ],
       ),
@@ -218,14 +233,13 @@ class _StudentDetailPageState extends State<StudentDetailPage> {
                 ),
               )),
               SizedBox(height: 20),
-
               if (isEditMode)
                 Center(
                   child: ElevatedButton(
                     onPressed: _saveChanges,
                     child: Text('Save Changes', style: TextStyle(color: Colors.white)),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.teal[400],
+                      primary: Colors.teal[400],
                     ),
                   ),
                 ),
