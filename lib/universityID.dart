@@ -49,6 +49,12 @@ class _UniversityIDState extends State<UniversityID> {
       appBar: AppBar(
         title: Text('University Dashboard'),
         backgroundColor: Colors.teal[400],
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.refresh),
+            onPressed: fetchStudents,
+          ),
+        ],
       ),
       body: isLoading
           ? Center(child: CircularProgressIndicator(color: Colors.white))
